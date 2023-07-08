@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="main.js"></script>
+  <title>vuejs</title>
+</head>
+<body>
+  <!-- The Vue Instance -->
+  <div id="nastaran">
+    <h1>
+      <p>{{ description.value }}</p>
+    </h1>
+    <!-- Attribute Binding -->
+    <a v-bind:href="Link.href" v-bind:title="Title.text">Link</a>
+    <!-- Conditional Rendering -->
+    <div v-if="inSale">On Sale</div>
+  </div>
+</body>
+</html>
