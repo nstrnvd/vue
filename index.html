@@ -14,9 +14,15 @@
       <p>{{ description.value }}</p>
     </h1>
     <!-- Attribute Binding -->
-    <a v-bind:href="Link.href" v-bind:title="Title.text">Link</a>
+    <a v-bind:href="Link.href" v-bind:title="Title.text">
+      <img src="photo_2023-07-24_17-20-58.jpg" alt="img" width="500" height="600">
+    </a>
     <!-- Conditional Rendering -->
     <div v-if="inSale">On Sale</div>
+    <!-- V-FOR -->
+    <ul>
+      <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
+    </ul>
   </div>
 </body>
 </html>
