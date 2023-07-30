@@ -13,25 +13,45 @@
     <h1>
       <p>{{ description.value }}</p>
     </h1>
+    <p v-if="inStock">in stock</p>
+    <p v-else :class="{ outOfStock: !inStock }">out of stock</p>
     <!-- Attribute Binding -->
     <a v-bind:href="Link.href" v-bind:title="Title.text">
-      <img :src="imageSource" :alt="imageAlt" width="500" height="600">
+      <img class="green_img" :src="imageSource" :alt="imageAlt" width="500" height="600">
     </a>
     <!-- Conditional Rendering -->
     <div v-if="inSale">On Sale</div>
     <!-- V-FOR -->
-    <ul>
-      <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
-    </ul>
-    <div v-for="variant in variants" :key="variant.variantId">
+    
+    
+    <!-- <button v-on:click="addToCart"> add to cart</button>
+      <button v-on:click="removeFromToCart"> remov to cart</button> -->
+
+    <!-- <div v-for="variant in variants" :key="variant.variantId">
       <p @mouseover="updatePtoduct(variant.variantImage)">
         {{ variant.variantColor }}
       </p>
+    </div> -->
+      
+    <div
+      v-for="variant in variants"
+      :key="variant.variantId"
+      class="color-box"
+      :style="{ backgroundColor: variant.variantColor }"
+      @mouseover="updatePtoduct(variant.variantImage)">
     </div>
-
-    <button v-on:click="addToCart"> add to cart</button>
-    <button v-on:click="removeFromToCart"> remov to cart</button>
-
+  
+    <ul>
+      <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
+    </ul>
+    
+    <button 
+      v-on:click="addToCart" 
+      :disabled="!inStock" 
+      :class="{ disabledButton: !inStock }">
+      Add to cart
+    </button>
+    <button v-on:click="removeFromCart">remove from cart</button>
 
     <div class="cart">
       <p> Cart{{cart}}</p>

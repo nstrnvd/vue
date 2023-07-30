@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       imageSource: "imges/green.jpg",
       imageAlt: "green-socks",
+      inStock: false,
+      show: false,
+      onSale: true,
       variants: [
         {
           variantId: 2233,
@@ -31,15 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     methods: {
       addToCart: function () {
-        this.cart += 1
+        this.cart += 1;
       },
-      removeFromToCart: function () {
-        this.cart -= 1
+      removeFromCart: function () {
+        this.cart -= 1;
       },
-      updatePtoduct: function(variantImage) {
+      updatePtoduct: function (variantImage) {
         this.imageSource = variantImage;
       },
-    }
+    },
   })
   Vue.config.devtools = true;
 });
