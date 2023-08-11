@@ -1,41 +1,84 @@
-var app = new Vue({
-  el: "#nastaran",
-  data: {
-    description: {
-      value: 'A pair of warm, fuzzy socks',
-    },
-    brand: "Vue Masterfull",
-    product: "socks",
-    Link: {
-      href: 'https://v2.vuejs.org/v2/guide/index.html'
-    },
-    // imageSource: "assets/green.jpg",
-    imageAlt: "green-socks",
-    selectedVariant: 0,
-    // inStock: false,
-    // inventory: 5,
-    // show: false,
-    onSale: true,
-    variants: [
-      {
-        variantId: 2233,
-        variantColor: "green",
-        variantImage: "assets/green.png",
-        variantQuantity: 10,
-      },
-      {
-        variantId: 2234,
-        variantColor: "blue",
-        variantImage: "assets/blue.png",
-        variantQuantity: 0,
-      },
-    ],
 
-    sizes: [{ key: 0, size: 'small' }, { key: 1, size: 'Medium' }, { key: 2, size: 'Large' }],
-    Title: {
-      text: 'This is a Title'
+Vue.component('product', {
+  props: {
+    premium: {
+      type: Boolean,
+      required: true,
     },
-    cart: 0,
+  },
+  template: `
+  <div class="product">
+    <div>
+      <h1>{{ brand }} {{ product }}</h1>
+      <h1>
+        <p>{{ description.value }}</p>
+      </h1>
+      <a v-bind:href="Link.href" v-bind:title="Title.text">
+        <img class="green_img" :src="imageSource" :alt="imageAlt" width="500" height="600">
+      </a>
+      <p v-if="inStock" :class="{ inStock: inStock }">in stock</p>
+      <p v-else :class="{ outOfStock: !inStock }">out of stock</p>
+      <p>user is premium:{{ premium }} </p>
+
+      <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
+        :style="{ backgroundColor: variant.variantColor }" @mouseover="updatePtoduct(index)">
+      </div>
+
+      <ul>
+        <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
+      </ul>
+
+      <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
+        Add to cart
+      </button>
+      <button v-on:click="removeFromCart">remove from cart</button>
+
+      <div class="cart">
+        <p>cart({{cart}})</p>
+      </div>
+
+      <p>{{ onsale }}</p>
+    </div>
+  </div>
+  `,
+  data() {
+    return {
+      description: {
+        value: 'A pair of warm, fuzzy socks',
+      },
+      brand: "Vue Masterfull",
+      product: "socks",
+      Link: {
+        href: 'https://v2.vuejs.org/v2/guide/index.html'
+      },
+      // imageSource: "assets/green.jpg",
+      imageAlt: "green-socks",
+      selectedVariant: 0,
+      // inStock: false,
+      // inventory: 5,
+      // show: false,
+      onSale: true,
+      variants: [
+        {
+          variantId: 2233,
+          variantColor: "green",
+          variantImage: "assets/green.png",
+          variantQuantity: 10,
+        },
+        {
+          variantId: 2234,
+          variantColor: "blue",
+          variantImage: "assets/blue.png",
+          variantQuantity: 0,
+        },
+      ],
+      sizes: [{ key: 0, size: 'small' }, { key: 1, size: 'Medium' }, { key: 2, size: 'Large' }],
+      details: ["80% cotton", "20% polyester", "Gender-neutral"],
+      Title: {
+        text: 'This is a Title'
+      },
+      cart: 0,
+    }
   },
   methods: {
     addToCart: function () {
@@ -65,5 +108,31 @@ var app = new Vue({
       }
       return this.brand + ' ' + this.product + ' not on sale!'
     },
-  }
+  },
 });
+
+Vue.component("product-details", {
+  props: {
+    details: {
+      type: String,
+    },
+  },
+  template: `
+	<div>
+		<h5>
+			details of sock
+		</h5>
+		<p>
+			type: {{ details }}
+		</p>
+	</div>
+	`
+})
+
+var app = new Vue({
+  el: "#nastaran",
+  data: {
+    premium: true,
+  },
+})
+Vue.config.devtools = true;

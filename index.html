@@ -12,40 +12,7 @@
 
 <body>
   <div id="nastaran">
-    <div class="product">
-      <div>
-        <h1>{{ brand }} {{ product }}</h1>
-        <h1>
-          <p>{{ description.value }}</p>
-        </h1>
-        <a v-bind:href="Link.href" v-bind:title="Title.text">
-          <img class="green_img" :src="imageSource" :alt="imageAlt" width="500" height="600">
-        </a>
-        <p v-if="inStock" :class="{ inStock: inStock }">in stock</p>
-        <p v-else :class="{ outOfStock: !inStock }">out of stock</p>
-
-
-
-        <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
-          :style="{ backgroundColor: variant.variantColor }" @mouseover="updatePtoduct(index)">
-        </div>
-
-        <ul>
-          <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
-        </ul>
-
-        <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
-          Add to cart
-        </button>
-        <button v-on:click="removeFromCart">remove from cart</button>
-
-        <div class="cart">
-          <p>cart({{cart}})</p>
-        </div>
-
-        <p>{{ onsale }}</p>
-      </div>
-    </div>
+    <product :premium="premium"></product>
   </div>
 
   <script src="main.js"></script>
