@@ -16,3 +16,7 @@
 .outOfStock {
     text-decoration: line-through;
 }
+
+.inStock {
+    color: green;
+}

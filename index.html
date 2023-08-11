@@ -1,62 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>vue</title>
   <link rel="stylesheet" href="main.css" />
-  <script src="main.js"></script>
-  <title>vuejs</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
+
 <body>
-  <!-- The Vue Instance -->
   <div id="nastaran">
-    <h1>
-      <p>{{ description.value }}</p>
-    </h1>
-    <p v-if="inStock">in stock</p>
-    <p v-else :class="{ outOfStock: !inStock }">out of stock</p>
-    <!-- Attribute Binding -->
-    <a v-bind:href="Link.href" v-bind:title="Title.text">
-      <img class="green_img" :src="imageSource" :alt="imageAlt" width="500" height="600">
-    </a>
-    <!-- Conditional Rendering -->
-    <div v-if="inSale">On Sale</div>
-    <!-- V-FOR -->
-    
-    
-    <!-- <button v-on:click="addToCart"> add to cart</button>
-      <button v-on:click="removeFromToCart"> remov to cart</button> -->
+    <div class="product">
+      <div>
+        <h1>{{ brand }} {{ product }}</h1>
+        <h1>
+          <p>{{ description.value }}</p>
+        </h1>
+        <a v-bind:href="Link.href" v-bind:title="Title.text">
+          <img class="green_img" :src="imageSource" :alt="imageAlt" width="500" height="600">
+        </a>
+        <p v-if="inStock" :class="{ inStock: inStock }">in stock</p>
+        <p v-else :class="{ outOfStock: !inStock }">out of stock</p>
 
-    <!-- <div v-for="variant in variants" :key="variant.variantId">
-      <p @mouseover="updatePtoduct(variant.variantImage)">
-        {{ variant.variantColor }}
-      </p>
-    </div> -->
-      
-    <div
-      v-for="variant in variants"
-      :key="variant.variantId"
-      class="color-box"
-      :style="{ backgroundColor: variant.variantColor }"
-      @mouseover="updatePtoduct(variant.variantImage)">
-    </div>
-  
-    <ul>
-      <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
-    </ul>
-    
-    <button 
-      v-on:click="addToCart" 
-      :disabled="!inStock" 
-      :class="{ disabledButton: !inStock }">
-      Add to cart
-    </button>
-    <button v-on:click="removeFromCart">remove from cart</button>
 
-    <div class="cart">
-      <p> Cart{{cart}}</p>
+
+        <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
+          :style="{ backgroundColor: variant.variantColor }" @mouseover="updatePtoduct(index)">
+        </div>
+
+        <ul>
+          <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
+        </ul>
+
+        <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
+          Add to cart
+        </button>
+        <button v-on:click="removeFromCart">remove from cart</button>
+
+        <div class="cart">
+          <p>cart({{cart}})</p>
+        </div>
+
+        <p>{{ onsale }}</p>
+      </div>
     </div>
   </div>
+
+  <script src="main.js"></script>
 </body>
+
 </html>
