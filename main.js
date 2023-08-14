@@ -28,10 +28,14 @@ Vue.component('product', {
         <li v-for="size in sizes" :key="size.key">{{ size.size }}</li>
       </ul>
 
-      <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
+      <button
+        @click="addToCart()"
+        :disabled="!inStock"
+        :class="{ disabledButton: !inStock }"
+      >
         Add to cart
       </button>
-      <button v-on:click="removeFromCart">remove from cart</button>
+      <button @click="removeFromCart()">Remove from cart</button>
 
       <div class="cart">
         <p>cart({{cart}})</p>
@@ -77,12 +81,12 @@ Vue.component('product', {
       Title: {
         text: 'This is a Title'
       },
-      cart: 0,
+      // cart: 0,
     }
   },
   methods: {
-    addToCart: function () {
-      this.cart += 1;
+    addToCart() {
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
     },
     removeFromCart: function () {
       this.cart -= 1;
@@ -133,6 +137,19 @@ var app = new Vue({
   el: "#nastaran",
   data: {
     premium: true,
+    cart: [],
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id);
+    },
+    removeFromCart(id) {
+      for (var i = this.cart.length - 1; i >= 0; i--) {
+        if (this.cart[i] === id) {
+          this.cart.splice(i, 1);
+        }
+      }
+    },
   },
 })
 Vue.config.devtools = true;
